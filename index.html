@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>dordal</title>
-<!-- 2019-01-19 Sat 20:19 -->
+<!-- 2019-01-19 Sat 21:14 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="nugnoy" />
@@ -148,7 +148,8 @@ for the JavaScript code in this tag.
 <li><a href="#sec-4">4. 1.2. Data Rate, Throughput and Bandwidth</a></li>
 <li><a href="#sec-5">5. 1.3. Packets</a></li>
 <li><a href="#sec-6">6. 1.4. Datagram forwarding</a></li>
-<li><a href="#sec-7">7. &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  1 An Overview of Networks</a></li>
+<li><a href="#sec-7">7. 1.5. Toplogy</a></li>
+<li><a href="#sec-8">8. &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  1 An Overview of Networks</a></li>
 </ul>
 </div>
 </div>
@@ -395,17 +396,82 @@ for the JavaScript code in this tag.
 <h2 id="sec-6"><span class="section-number-2">6</span> 1.4. Datagram forwarding</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
-<li></li>
+<li>"datagram-forwarding"
+<ul class="org-ul">
+<li>one way of delivering packets
+</li>
+<li>[packet headers] have a "destination address"
+</li>
+<li>"routers"/"switches" are to read this to send the packet to correct address
+</li>
+</ul>
+</li>
+<li>"forwarding table"
+<ul class="org-ul">
+<li>maps a [destination address] and [next<sub>hop]</sub>
+</li>
+</ul>
+</li>
+<li>"next<sub>hop</sub>"
+<ul class="org-ul">
+<li>the immediate "neighbor address" or "interface" toward the destination
+</li>
+</ul>
+</li>
+<li>"switch", "interface", and "neighbor"
+</li>
+<li>"stateless forwarding"
+<ul class="org-ul">
+<li>forwarding tables don't have a "per-connection state"
+</li>
+</ul>
+</li>
+<li>[datagram forwarding] sometimes has other info in the header,
+<ul class="org-ul">
+<li>aside from destination address
+</li>
+<li>"quality of service information"
+</li>
+<li>there's a TON to transfer: use path A
+</li>
+<li>I need this transferred quick: use path B
+</li>
+</ul>
+</li>
+<li>"switches", "bridges" v. "routers"
+<ul class="org-ul">
+<li>switches/bridges work on the LAN layer
+</li>
+<li>routers work on the IP layer
+</li>
+</ul>
+</li>
+<li>"default entry" in a forwarding table
+<ul class="org-ul">
+<li>where to send a packet, if no match exists on the forwarding table
+</li>
+</ul>
+</li>
+<li>aside: virtual circuits, state-ful forwarding
+<ul class="org-ul">
+<li>different connections can be routed differently
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7"><span class="section-number-2">7</span> &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  1 An Overview of Networks</h2>
+<h2 id="sec-7"><span class="section-number-2">7</span> 1.5. Toplogy</h2>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  1 An Overview of Networks</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: nugnoy</p>
-<p class="date">Created: 2019-01-19 Sat 20:19</p>
+<p class="date">Created: 2019-01-19 Sat 21:14</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
