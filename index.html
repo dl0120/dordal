@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>dordal</title>
-<!-- 2019-01-19 Sat 21:14 -->
+<!-- 2019-01-19 Sat 21:42 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="nugnoy" />
@@ -149,7 +149,11 @@ for the JavaScript code in this tag.
 <li><a href="#sec-5">5. 1.3. Packets</a></li>
 <li><a href="#sec-6">6. 1.4. Datagram forwarding</a></li>
 <li><a href="#sec-7">7. 1.5. Toplogy</a></li>
-<li><a href="#sec-8">8. &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  1 An Overview of Networks</a></li>
+<li><a href="#sec-8">8. 1.5.1. Traffic engineering</a></li>
+<li><a href="#sec-9">9. 1.6. Routing loops</a></li>
+<li><a href="#sec-10">10. 1.7. Congestion</a></li>
+<li><a href="#sec-11">11. 1.8. Packets again</a></li>
+<li><a href="#sec-12">12. &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  1 An Overview of Networks</a></li>
 </ul>
 </div>
 </div>
@@ -420,6 +424,12 @@ for the JavaScript code in this tag.
 </li>
 <li>"switch", "interface", and "neighbor"
 </li>
+<li>network diagram without a loop.png
+<ul class="org-ul">
+<li><img src="network diagram without a loop.png" alt="network diagram without a loop.png" />
+</li>
+</ul>
+</li>
 <li>"stateless forwarding"
 <ul class="org-ul">
 <li>forwarding tables don't have a "per-connection state"
@@ -463,15 +473,161 @@ for the JavaScript code in this tag.
 </div>
 <div id="outline-container-sec-7" class="outline-2">
 <h2 id="sec-7"><span class="section-number-2">7</span> 1.5. Toplogy</h2>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>network without a "loop"
+<ul class="org-ul">
+<li>there's only ONE path between any pair of nodes
+</li>
+<li>aka "acyclic", "tree"
+</li>
+<li>there's no "redundancy"
+</li>
+<li><img src="network diagram without a loop.png" alt="network diagram without a loop.png" />
+</li>
+</ul>
+</li>
+<li>network with a "loop"
+<ul class="org-ul">
+<li>a pair of nodes has more than 1 path
+</li>
+<li><img src="network diagram with a loop.png" alt="network diagram with a loop.png" />
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 1.5.1. Traffic engineering</h2>
+<div class="outline-text-2" id="text-8">
+<ul class="org-ul">
+<li>"traffic engineering"
+<ul class="org-ul">
+<li>when there's redundant paths between 2 nodes,
+</li>
+<li>intentionally choosing 1 route over another
+</li>
+</ul>
+</li>
+<li>"quality of service information" in datagram forwarding
+<ul class="org-ul">
+<li>can do "traffic engineering"
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 1.6. Routing loops</h2>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li>"routing loop"
+<ul class="org-ul">
+<li>in a network with a loop, a packet might circulate endlessly
+</li>
+</ul>
+</li>
+<li>forwarding table is "distributed"
+<ul class="org-ul">
+<li>there is no "global authority" that does sanity checks on different forwarding tables
+</li>
+</ul>
+</li>
+<li>"linear routing loop"
+<ul class="org-ul">
+<li>a "routing loop" can happen in a network WITHOUT a loop too!
+</li>
+<li>2 nodes just send a packet back and forth infinitely
+</li>
+</ul>
+</li>
+<li>how to avoid routing loop?
+<ul class="org-ul">
+<li>maybe disallow a loop in the network "topology" altogether
+</li>
+<li>maybe forbid a switch send a packet "back out" the path ("interface") by which it arrived
+</li>
+<li>maybe have a "time to live" - a packet can only hop so many times before it is destroyed
+</li>
+</ul>
+</li>
+<li>"time to live" field, "TTL field"
+</li>
+<li>node D might decide that the best path to B is D-E-C-B
+<ul class="org-ul">
+<li>node E might decide that the best path to B is E-D-A-B
+</li>
+<li>D and E would send the packet back and forth to each other
+</li>
+<li>a linear loop arises
+</li>
+</ul>
+</li>
+<li>successful datagram routing requires cooperation (between nodes) and a consistent view of the network (held by different nodes)
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> 1.7. Congestion</h2>
+<div class="outline-text-2" id="text-10">
+<ul class="org-ul">
+<li>"congestion"
+<ul class="org-ul">
+<li>packets arrive faster than they can be sent out
+</li>
+<li>bottleneck, backlog
+</li>
+</ul>
+</li>
+<li>queue
+<ul class="org-ul">
+<li>when there's a backlog,
+</li>
+<li>a "queue" forms
+</li>
+<li>when the queue is full, packets will be "dropped"
+</li>
+<li>basically, ignore new packets
+</li>
+</ul>
+</li>
+<li>"knee"
+<ul class="org-ul">
+<li>the point where a queue is beginning to buidl up
+</li>
+<li>aka "contention"
+</li>
+</ul>
+</li>
+<li>"cliff"
+<ul class="org-ul">
+<li>the point where queue is full, and packets are being dropped
+</li>
+</ul>
+</li>
+<li>congestion doesn't necessarily mean "not enough bandwidth"
+<ul class="org-ul">
+<li>something about "network's feedback that the maximum transmission rate has been reached"
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> 1.8. Packets again</h2>
 </div>
 
-<div id="outline-container-sec-8" class="outline-2">
-<h2 id="sec-8"><span class="section-number-2">8</span> &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  1 An Overview of Networks</h2>
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  1 An Overview of Networks</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: nugnoy</p>
-<p class="date">Created: 2019-01-19 Sat 21:14</p>
+<p class="date">Created: 2019-01-19 Sat 21:42</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
